@@ -1,0 +1,142 @@
+/* src/styles/markdown-themes.css */
+
+/* Common Tweaks for all themes */
+.w-md-editor-preview {
+  padding: 2rem !important;
+}
+
+/* =========================================
+   Theme: Default (Modern Sans)
+   ========================================= */
+.theme-default .wmde-markdown {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  line-height: 1.8;
+  color: #333;
+}
+.theme-default .wmde-markdown h1,
+.theme-default .wmde-markdown h2,
+.theme-default .wmde-markdown h3 {
+  color: #111;
+  font-weight: 700;
+  margin-top: 1.5em;
+  margin-bottom: 0.8em;
+}
+.theme-default .wmde-markdown h1 { font-size: 1.8em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+.theme-default .wmde-markdown h2 { font-size: 1.5em; }
+.theme-default .wmde-markdown p { margin-bottom: 1.2em; text-align: justify; }
+.theme-default .wmde-markdown blockquote {
+  border-left: 4px solid #e2e8f0;
+  color: #64748b;
+  background: #f8fafc;
+  padding: 1em;
+  border-radius: 4px;
+}
+
+/* =========================================
+   Theme: Elegant (Serif / Academic)
+   ========================================= */
+.theme-elegant .wmde-markdown {
+  font-family: "Georgia", "Times New Roman", "Songti SC", serif;
+  line-height: 2;
+  color: #2c2c2c;
+  background-color: #faf9f6; /* Off-white paper look */
+}
+.theme-elegant .wmde-markdown h1,
+.theme-elegant .wmde-markdown h2 {
+  font-family: "Georgia", "Times New Roman", serif;
+  color: #000;
+  text-align: center;
+  font-weight: normal;
+}
+.theme-elegant .wmde-markdown h1 { 
+    margin-top: 2em; 
+    margin-bottom: 1.5em;
+    font-size: 2em;
+    letter-spacing: 0.05em;
+}
+.theme-elegant .wmde-markdown h2 {
+    font-size: 1.4em;
+    margin-top: 1.8em;
+    border-bottom: 1px solid #ddd;
+    display: inline-block;
+    padding-bottom: 4px;
+    margin-bottom: 1em;
+}
+.theme-elegant .wmde-markdown p { margin-bottom: 1.5em; text-indent: 2em; }
+.theme-elegant .wmde-markdown blockquote {
+  font-style: italic;
+  border-left: none;
+  padding: 1em 2em;
+  color: #555;
+  background: transparent;
+  position: relative;
+}
+.theme-elegant .wmde-markdown blockquote::before {
+    content: "“";
+    font-size: 3em;
+    color: #ddd;
+    position: absolute;
+    left: 0;
+    top: -10px;
+}
+
+/* =========================================
+   Theme: WeChat/Mobile (Accent Colors)
+   ========================================= */
+.theme-wechat .wmde-markdown {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  line-height: 1.75;
+  color: #3f3f3f;
+  background-color: #fff;
+}
+.theme-wechat .wmde-markdown h1 {
+    display: none; /* WeChat articles usually use the title field */
+}
+.theme-wechat .wmde-markdown h2 {
+    font-size: 1.2em;
+    border-left: 4px solid #07c160;
+    padding-left: 10px;
+    margin: 30px 0 15px;
+    color: #07c160;
+    line-height: 1.4;
+}
+.theme-wechat .wmde-markdown h3 {
+    font-size: 1.1em;
+    margin: 30px 0 15px;
+    padding-left: 10px;
+    font-weight: bold;
+    color: #333;
+    border-left: 4px solid #333;
+}
+.theme-wechat .wmde-markdown p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    letter-spacing: 0.05em;
+    text-align: justify;
+}
+.theme-wechat .wmde-markdown strong {
+    color: #07c160;
+}
+.theme-wechat .wmde-markdown blockquote {
+    border-left: 4px solid #07c160;
+    background-color: #f6f6f6;
+    color: #666;
+    padding: 15px;
+    margin: 20px 0;
+    line-height: 1.6;
+    border-radius: 4px;
+}
+.theme-wechat .wmde-markdown ul, 
+.theme-wechat .wmde-markdown ol {
+    padding-left: 20px;
+    margin-bottom: 20px;
+    color: #555;
+}
+.theme-wechat .wmde-markdown li {
+    margin-bottom: 8px;
+}
+.theme-wechat .wmde-markdown img {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin: 20px 0;
+}
