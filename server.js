@@ -19,6 +19,63 @@ const initialKnowledge = require('./src/data/knowledge_init.json');
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// --- Data Directory Configuration ---
+// TEMPLATE_DIR: Source of truth for initial data structures (tracked by git)
+const TEMPLATE_DIR = path.join(__dirname, 'src/data');
+// USER_DATA_DIR: Where user data actually lives (ignored by git)
+const USER_DATA_DIR = process.env.DATA_DIR || path.join(__dirname, 'data');
+
+// Ensure USER_DATA_DIR exists and populate with defaults if missing
+async function initUserData() {
+  try {
+    await fs.mkdir(USER_DATA_DIR, { recursive: true });
+    
+    // List of files to check/copy from template
+    const templateFiles = await fs.readdir(TEMPLATE_DIR);
+    
+    for (const file of templateFiles) {
+      const srcPath = path.join(TEMPLATE_DIR, file);
+      const destPath = path.join(USER_DATA_DIR, file);
+      
+      try {
+        await fs.access(destPath);
+      } catch {
+        // Destination doesn't exist, copy from template
+        const stats = await fs.stat(srcPath);
+        if (stats.isDirectory()) {
+             await fs.mkdir(destPath, { recursive: true });
+             // Recursive copy for directories like research_sessions
+             const subFiles = await fs.readdir(srcPath);
+             for (const subFile of subFiles) {
+                await fs.copyFile(path.join(srcPath, subFile), path.join(destPath, subFile));
+             }
+        } else {
+             await fs.copyFile(srcPath, destPath);
+             console.log(`Initialized user data file: ${file}`);
+        }
+      }
+    }
+    
+    // Special handling for config.json
+    const configPath = path.join(USER_DATA_DIR, 'config.json');
+    try {
+      await fs.access(configPath);
+    } catch {
+       const exampleConfig = path.join(TEMPLATE_DIR, 'config.example.json');
+       try {
+         await fs.copyFile(exampleConfig, configPath);
+         console.log('Initialized config.json from example');
+       } catch (e) { }
+    }
+
+  } catch (err) {
+    console.error('Error initializing user data directory:', err);
+  }
+}
+
+// Block until user data is ready
+await initUserData();
+
 const app = express();
 const PORT = 3001;
 
@@ -30,7 +87,8 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.text({ limit: '50mb' }));
 
 const CONTENT_DIR = path.join(__dirname, 'src/content');
-const DATA_DIR = path.join(__dirname, 'src/data');
+// Redirect all data operations to the user data directory
+const DATA_DIR = USER_DATA_DIR;
 const REFS_FILE = path.join(DATA_DIR, 'references.json');
 const KNOWLEDGE_FILE = path.join(DATA_DIR, 'knowledge.json');
 const EMBEDDINGS_FILE = path.join(DATA_DIR, 'embeddings.json');
