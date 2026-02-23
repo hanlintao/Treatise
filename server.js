@@ -1502,7 +1502,7 @@ app.get('/api/search', async (req, res) => {
           id: ref.id,
           title: ref.title,
           snippet: snippet,
-          path: `/chapter/introduction?ref=${ref.id}` // Use a safe default chapter ID
+          path: `/questions?refId=${ref.id}`
         });
       }
     }
@@ -4220,8 +4220,8 @@ app.post('/api/inspirations', async (req, res) => {
       };
       inspirations.push(newInspiration);
       // Return the new ID
-      res.json({ success: true, inspiration: newInspiration });
       await fs.writeFile(INSPIRATIONS_FILE, JSON.stringify(inspirations, null, 2), 'utf-8');
+      res.json({ success: true, inspiration: newInspiration });
       return;
     }
     
