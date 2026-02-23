@@ -103,7 +103,7 @@ function parse(md) {
                 next.trim().startsWith('|') ||
                 /^[-*_]{3,}\s*$/.test(next.trim())
             ) break;
-            para += next;
+            para += ' ' + next;
             i++;
         }
         blocks.push({ t: 'p', text: para });
